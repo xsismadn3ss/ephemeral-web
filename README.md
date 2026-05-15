@@ -36,6 +36,22 @@ npm run dev -- --open
 
 Everything inside `src/lib` is part of your library, everything inside `src/routes` can be used as a showcase or preview app.
 
+## Docker
+
+The project includes a production Docker setup based on `adapter-node`.
+
+```sh
+docker compose up --build
+```
+
+The app will be available on `http://localhost:3000`.
+
+If the API runs somewhere else, set `VITE_PUBLIC_API_BASE_URL` before starting the container:
+
+```sh
+VITE_PUBLIC_API_BASE_URL=http://host.docker.internal:8000 docker compose up --build
+```
+
 ## Building
 
 To build your library:
