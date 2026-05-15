@@ -15,10 +15,14 @@ RUN pnpm run build
 
 FROM node:22-alpine AS runtime
 WORKDIR /app
+ENV PNPM_HOME=/pnpm
+ENV PATH=$PNPM_HOME:$PATH
+RUN corepack enable
 ENV NODE_ENV=production
 ENV PORT=3000
 ENV HOST=0.0.0.0
+COPY package.json pnpm-lock.yaml ./
+RUN pnpm install --prod --frozen-lockfile
 COPY --from=build /app/build ./build
-COPY package.json ./
 EXPOSE 3000
 CMD ["node", "build"]
